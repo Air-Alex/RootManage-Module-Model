@@ -1,7 +1,7 @@
-id=UniTimecron
-name=UniTimecron
+id=KsuNet
+name=KsuNet
 version=0.0.0
-versionCode=20241212
-author=LIghtJUNction
-description=timecron+ksu/webui = UniTimecron，默认密码admin
-updateJson=http://raw.githubusercontent.com/LIghtJUNction/RootManage-Module-Model/main/update.json
+versionCode=20241223
+author=alex
+description=mudule_model
+updateJson=http://raw.githubusercontent.com/Air-Alex/RootManage-Module-Model/main/update.json
