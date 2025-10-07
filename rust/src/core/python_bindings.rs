@@ -1,6 +1,6 @@
 use crate::core::rmm_core::*;
 use pyo3::prelude::*;
-use pyo3::types::{PyDict, PyList, PyString, PyModule};
+use pyo3::types::{PyDict, PyList, PyString};
 use std::collections::HashMap;
 use std::path::Path;
 
