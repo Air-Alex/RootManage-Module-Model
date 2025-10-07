@@ -201,13 +201,18 @@ impl GitAnalyzer {
     
     /// 获取当前分支名
     fn get_current_branch(repo: &Repository) -> Result<String> {
-        let head = repo.head()
-            .with_context(|| "Failed to get HEAD reference")?;
-        
-        if let Some(branch_name) = head.shorthand() {
-            Ok(branch_name.to_string())
-        } else {
-            Ok("HEAD".to_string())
+        // If HEAD cannot be read (for example in a freshly `git init` repository with no commits),
+        // return a sensible default "HEAD" instead of propagating an error. This makes the CLI
+        // more tolerant when run in directories that are not full git repos yet.
+        match repo.head() {
+            Ok(head) => {
+                if let Some(branch_name) = head.shorthand() {
+                    Ok(branch_name.to_string())
+                } else {
+                    Ok("HEAD".to_string())
+                }
+            }
+            Err(_) => Ok("HEAD".to_string()),
         }
     }
     
@@ -242,19 +247,23 @@ impl GitAnalyzer {
     
     /// 获取最后一次提交信息
     fn get_last_commit_info(repo: &Repository) -> Result<(Option<String>, Option<String>)> {
-        let head = repo.head()
-            .with_context(|| "Failed to get HEAD reference")?;
-        
-        if let Some(oid) = head.target() {
-            let commit = repo.find_commit(oid)
-                .with_context(|| "Failed to find commit")?;
-            
-            let hash = oid.to_string();
-            let message = commit.message().unwrap_or("").to_string();
-            
-            Ok((Some(hash), Some(message)))
-        } else {
-            Ok((None, None))
+        // Be tolerant when HEAD can't be read (e.g. freshly initialized repo with no commits).
+        // In that case return (None, None) instead of propagating an error to the caller.
+        match repo.head() {
+            Ok(head) => {
+                if let Some(oid) = head.target() {
+                    let commit = repo.find_commit(oid)
+                        .with_context(|| "Failed to find commit")?;
+
+                    let hash = oid.to_string();
+                    let message = commit.message().unwrap_or("").to_string();
+
+                    Ok((Some(hash), Some(message)))
+                } else {
+                    Ok((None, None))
+                }
+            }
+            Err(_) => Ok((None, None)),
         }
     }
 }
@@ -1008,19 +1017,22 @@ impl RmmCore {/// 检测给定路径是否在 Git 仓库中，并返回详细信
         let repo = Repository::open(git_root)
             .with_context(|| format!("Failed to open Git repository at {}", git_root.display()))?;
         
-        let head = repo.head()
-            .with_context(|| "Failed to get HEAD reference")?;
-        
-        if let Some(oid) = head.target() {
-            let commit = repo.find_commit(oid)
-                .with_context(|| "Failed to find commit")?;
-            
-            let hash = oid.to_string();
-            let message = commit.message().unwrap_or("").to_string();
-            
-            Ok((Some(hash), Some(message)))
-        } else {
-            Ok((None, None))
+        // Be tolerant when HEAD can't be read (e.g. freshly initialized repo with no commits).
+        match repo.head() {
+            Ok(head) => {
+                if let Some(oid) = head.target() {
+                    let commit = repo.find_commit(oid)
+                        .with_context(|| "Failed to find commit")?;
+
+                    let hash = oid.to_string();
+                    let message = commit.message().unwrap_or("").to_string();
+
+                    Ok((Some(hash), Some(message)))
+                } else {
+                    Ok((None, None))
+                }
+            }
+            Err(_) => Ok((None, None)),
         }
     }
     
