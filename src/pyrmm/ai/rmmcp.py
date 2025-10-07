@@ -289,7 +289,7 @@ def rmmcp():
     主入口函数，用于 project.scripts 配置
     """
     args = parse_args()
-    print("🚀 启动 RMM MCP 服务器... 输入rmmcp -h 查看帮忙")
+    print("🚀 启动 RMM MCP 服务器... 输入rmmcp -h 查看帮助")
 
     start_mcp_server(
         transport=args.transport,
