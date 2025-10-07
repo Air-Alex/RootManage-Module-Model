@@ -73,10 +73,9 @@ RMM v0.2.0 至今 由 Rust 混合 Python 实现速度大幅度提升
 >
 > 现已支持mcp服务器 stdio 和 sse 模式
 
-avd你可以参考下面的教程，本项目拷贝了rootAVD几个关键文件。
-并未将rootAVD内置于本项目，你需要参考[rootAVD教程](https://gitlab.com/newbit/rootAVD)对你的AVD进行root.
+avd你可以参考下面的教程，本项目拷贝了rootAVD几个关键文件位于assets/rootAVD目录。
 
-感谢 [rootAVD](https://gitlab.com/newbit/rootAVD) 的作者 newbit 提供的便捷root脚本。
+参考[rootAVD教程](https://gitlab.com/newbit/rootAVD)对你的AVD进行root.
 
 [Magick.zip版本v29](https://github.com/topjohnwu/Magisk/releases/download/v29.0/Magisk-v29.0.apk)
 
@@ -89,16 +88,50 @@ avd你可以参考下面的教程，本项目拷贝了rootAVD几个关键文件�
 ```bash
 uv tool install pyrmm 
 ```
-
-> 或者 cd到本项目根目录
+> 使用rmm命令
 
 ```bash
-uv tool install -e . --force 
+rmm
 ```
 
-### 用户手册
+> 卸载
 
-#### rootAVD:
+```
+uv tool uninstall pyrmm
+```
+
+### 从源码安装（开发者）
+
+开发者快速开始（可复制粘贴执行）——在本仓库根目录运行以下命令：
+
+1. 克隆仓库并进入目录
+2. 同步依赖并构建
+3. 使用 maturin 进行本地开发（编译 Python 扩展）
+4. 将工具以可编辑模式安装到本地 Python 环境
+
+```bash
+git clone https://github.com/LIghtJUNction/RootManageModuleModel.git
+cd RootManageModuleModel
+uv sync -U
+uv build && maturin develop
+uv tool install -e . --force
+```
+
+开发者可以使用
+
+```
+.venv/bin/rmm
+```
+
+方便调试
+
+说明：
+- 在 macOS / Linux 下请使用 zsh 或 bash；在 Windows 下可使用 PowerShell 或 Git Bash。
+- 如果遇到权限或环境问题，请先确保已安装 Rust、maturin、以及项目所需的构建工具（例如 cmake）。
+
+## 用户手册
+
+### rootAVD:
 
 致谢：[rootAVD](https://gitlab.com/newbit/rootAVD)
 示例命令：
@@ -117,28 +150,6 @@ system-images\android-36\google_apis\x86_64\ramdisk.img 需要替换为实际路
 #### Magick模块MCP服务器
 
 计划中
-
-## DEV & 开发指南
-
-开发者快速开始（可复制粘贴执行）——在本仓库根目录运行以下命令：
-
-1. 克隆仓库并进入目录
-2. 同步依赖并构建
-3. 使用 maturin 进行本地开发（编译 Python 扩展）
-4. 将工具以可编辑模式安装到本地 Python 环境
-
-```bash
-git clone https://github.com/LIghtJUNction/RootManageModuleModel.git
-cd RootManageModuleModel
-uv sync -U
-uv build
-maturin develop
-uv tool install -e . --force
-```
-
-说明：
-- 在 macOS / Linux 下请使用 zsh 或 bash；在 Windows 下可使用 PowerShell 或 Git Bash。
-- 如果遇到权限或环境问题，请先确保已安装 Rust、maturin、以及项目所需的构建工具（例如 cmake）。
 
 ### RMM正式启动时间 2025-06-07 高考首日
 

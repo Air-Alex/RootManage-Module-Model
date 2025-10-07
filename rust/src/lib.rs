@@ -19,8 +19,7 @@ use colored::*;
 #[command(color = clap::ColorChoice::Always)]
 #[command(styles = get_styles())]
 #[command(help_template = "\
-{before-help}{name} {version}
-{author-with-newline}{about-with-newline}
+{before-help}{author-with-newline}{about-with-newline}
 {usage-heading} {usage}
 
 {all-args}{after-help}
