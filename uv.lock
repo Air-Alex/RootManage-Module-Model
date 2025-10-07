@@ -774,6 +774,7 @@ name = "pyrmm"
 source = { editable = "." }
 dependencies = [
     { name = "click" },
+    { name = "maturin" },
     { name = "mcp", extra = ["cli"] },
     { name = "pygithub" },
     { name = "requests" },
@@ -794,6 +795,7 @@ requires-dist = [
     { name = "black", marker = "extra == 'dev'", specifier = ">=25.1.0" },
     { name = "click", specifier = ">=8.2.1" },
     { name = "isort", marker = "extra == 'dev'", specifier = ">=6.0.0" },
+    { name = "maturin", specifier = ">=1.9.5" },
     { name = "maturin", marker = "extra == 'dev'", specifier = ">=1.8.0" },
     { name = "mcp", extras = ["cli"], specifier = ">=1.9.4" },
     { name = "pygithub", specifier = ">=2.6.1" },
