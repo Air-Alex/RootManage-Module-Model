@@ -1,53 +1,46 @@
-[![Alt](https://repobeats.axiom.co/api/embed/4dbcdf8b2d24156dcf08cef7cc801d9adb317cae.svg "Repobeats analytics image")](https://github.com/LIghtJUNction/RootManage-Module-Model/)
+
+<table>
+  <tr>
+    <td width="140" valign="middle">
+      <a href="https://github.com/LIghtJUNction/RootManage-Module-Model/">
+        <img src="assets/logo.png" alt="RMM logo" width="120" style="border-radius:8px;" />
+      </a>
+    </td>
+    <td valign="middle">
+      <h1 style="margin:0;">RMM (Root Manage Module Model)</h1>
+      <p style="margin-top:6px; margin-bottom:6px;">轻量模块开发工具集 — 从创建到构建、测试到发布的一站式工作流</p>
+      <!-- <p style="margin:6px 0 0 0;"><a href="https://github.com/LIghtJUNction/RootManage-Module-Model/"><img src="https://repobeats.axiom.co/api/embed/4dbcdf8b2d24156dcf08cef7cc801d9adb317cae.svg" alt="RepoBeats" /></a></p> -->
+    </td>
+  </tr>
+</table>
 
 ---
 
-![](assets/logo.png)
+## RMM 模式对比
 
----
+> 下表把“传统模式”和“新模式”的功能并列展示，方便快速对比。
 
-# RMM 传统模式
+| 功能 / Feature | 传统模式 | 新模式 |
+|---|:---:|:---:|
+| 运行 Action Workflow | ✅ | ✅ |
+| 完整构建流程 | ✅ | ✅ |
+| 在任意地方运行无需新建 GitHub 仓库 | ❌ | ☑️ |
+| prebuild script（编译前脚本） | ❌ 不支持 | ☑️ 支持 |
+| postbuild script（编译后脚本） | ❌ 不支持 | ☑️ 支持 |
+| 分模板初始化功能 | ❌ 不支持 | ☑️ 支持（不完善） |
+| 多项目合并构建 | ❌ 不支持 | ☑️ 开发中 |
+| 依赖管理 | ❌ 不支持 | ☑️ 开发中 |
+| 多模块合并 | ❌ 不支持 | ☑️ 支持 |
+| 模块仓库 | ❌ 不支持 | ☑️ 开发中 |
+| AI 测试 / 审计 / 优化 / 修复 | ❌ 不支持 | ☑️ 支持 |
+| 通知 / 模块推送（Telegram / Discord / QQ / 酷安） | ❌ 不支持 | ☑️ 开发中 |
+| 代理加速 | ❌ 不支持 | ☑️ 支持 |
+| 虚拟机仿真模块测试 | ❌ 不支持 | ☑️ 支持 |
+| 模块构建日志 | ❌ 不支持 | ☑️ 支持 |
+| 快捷安装至物理机 | ❌ 不支持 | ☑️ 支持 |
+| GPG 签名 | ❌ 不支持 | ☑️ 支持 |
 
-> 运行Action Workflow
-> 完成完整的构建流程
-
-不包含以下功能：
-
-- prebuild script ❌ 不支持 编译前脚本
-- postbuild script ❌ 不支持 编译后脚本
-- 分模板初始化功能 ❌ 不支持
-- 多项目合并构建 ❌ 不支持
-- 依赖管理 ❌ 不支持
-- 多模块合并 ❌ 不支持
-- 模块仓库 ❌ 不支持
-- AI测试&审计&优化&修复  ❌ 不支持
-- Telegram / Discord 通知 / QQ / 酷安 模块推送功能 ❌ 不支持
-- 代理加速 ❌ 不支持
-- 虚拟机仿真模块测试 ❌ 不支持
-- 模块构建日志 ❌ 不支持
-- 快捷安装至物理机 ❌ 不支持
-- GPG 签名 ❌ 不支持
-
-# RMM 新模式
-
-> 运行Action Workflow
-> apt install pyrmm
-> rmm build & test $ publish 一条龙服务
-
-- 在任意地方运行而无需新建github仓库 ☑️
-- 支持 prebuild script / postbuild script ☑️
-- 支持分模板初始化功能 ☑️ 不完善
-- 支持多项目合并构建 ☑️ developing
-- 支持依赖管理 ☑️ developing
-- 支持多模块合并 ☑️
-- 支持模块仓库 ☑️ developing
-- 支持 AI 测试&审计&优化&修复 ☑️
-- 支持 Telegram / Discord 通知 / QQ / 酷安 模块推送功能 ☑️ developing
-- 支持代理加速 ☑️
-- 支持虚拟机仿真模块测试 ☑️
-- 支持模块构建日志 ☑️
-- 支持快捷安装至物理机 ☑️
-- 支持 GPG 签名 ☑️
+> 注：表中“开发中 / developing”表示该功能正在实现中，状态可能会随着版本更新而变化。
 
 ## 快速介绍
 
@@ -80,10 +73,9 @@ RMM v0.2.0 至今 由 Rust 混合 Python 实现速度大幅度提升
 >
 > 现已支持mcp服务器 stdio 和 sse 模式
 
-avd你可以参考下面的教程，本项目拷贝了rootAVD几个关键文件。
-并未将rootAVD内置于本项目，你需要参考[rootAVD教程](https://gitlab.com/newbit/rootAVD)对你的AVD进行root.
+avd你可以参考下面的教程，本项目拷贝了rootAVD几个关键文件位于assets/rootAVD目录。
 
-感谢 [rootAVD](https://gitlab.com/newbit/rootAVD) 的作者 newbit 提供的便捷root脚本。
+参考[rootAVD教程](https://gitlab.com/newbit/rootAVD)对你的AVD进行root.
 
 [Magick.zip版本v29](https://github.com/topjohnwu/Magisk/releases/download/v29.0/Magisk-v29.0.apk)
 
@@ -96,16 +88,50 @@ avd你可以参考下面的教程，本项目拷贝了rootAVD几个关键文件�
 ```bash
 uv tool install pyrmm 
 ```
-
-> 或者 cd到本项目根目录
+> 使用rmm命令
 
 ```bash
-uv tool install -e . --force 
+rmm
 ```
 
-### 用户手册
+> 卸载
 
-#### rootAVD:
+```
+uv tool uninstall pyrmm
+```
+
+### 从源码安装（开发者）
+
+开发者快速开始（可复制粘贴执行）——在本仓库根目录运行以下命令：
+
+1. 克隆仓库并进入目录
+2. 同步依赖并构建
+3. 使用 maturin 进行本地开发（编译 Python 扩展）
+4. 将工具以可编辑模式安装到本地 Python 环境
+
+```bash
+git clone https://github.com/LIghtJUNction/RootManageModuleModel.git
+cd RootManageModuleModel
+uv sync -U
+uv build && maturin develop
+uv tool install -e . --force
+```
+
+开发者可以使用
+
+```
+.venv/bin/rmm
+```
+
+方便调试
+
+说明：
+- 在 macOS / Linux 下请使用 zsh 或 bash；在 Windows 下可使用 PowerShell 或 Git Bash。
+- 如果遇到权限或环境问题，请先确保已安装 Rust、maturin、以及项目所需的构建工具（例如 cmake）。
+
+## 用户手册
+
+### rootAVD:
 
 致谢：[rootAVD](https://gitlab.com/newbit/rootAVD)
 示例命令：
@@ -125,19 +151,6 @@ system-images\android-36\google_apis\x86_64\ramdisk.img 需要替换为实际路
 
 计划中
 
-### 开发指南
-
-# DEV & 开发指南
-
-> git clone https://github.com/LIghtJUNction/RootManageModuleModel.git
-> cd RootManageModuleModel
-> uv sync -U
-> uv build
-> maturin develop
-> uv tool install -e . --force
-
-依次执行上述命令
-
 ### RMM正式启动时间 2025-06-07 高考首日
 
 预祝各位考生金榜题名，前程似锦！
@@ -145,7 +158,7 @@ system-images\android-36\google_apis\x86_64\ramdisk.img 需要替换为实际路
 让我们携手构建一个更庞大的模块生态系统！
 Let's build a bigger module ecosystem together!
 
-# License
+## License
 
 MIT License
 Copyright (c) 2025 LIghtJUNction
@@ -173,7 +186,7 @@ SOFTWARE.
 > 并且允许将模块进行商业化处理
 > 唯一的要求是包含一份RMM MIT License的副本
 
-# 声明
+## 声明
 
 本开源项目旨在促进模块生态系统的发展和创新。
 拥抱AI技术，提升模块开发效率和质量。
@@ -185,7 +198,7 @@ SOFTWARE.
 - 了解模块化开发的基本概念
 - 开启静态类型检查，等级为strict
 
-# 贡献
+## 贡献
 
 我们欢迎任何形式的贡献，包括但不限于：
 
@@ -222,7 +235,7 @@ SOFTWARE.
 
 感谢你的支持与贡献！
 
-# 外部依赖
+## 外部依赖
 
 - uv
 - maturin 用来编译Rust python 扩展模块 基于pyo3
@@ -230,11 +243,11 @@ SOFTWARE.
 - adb 用来连接AVD或物理机
 - rootAVD 用来root AVD -- 可选 如果有测试需求
 
-# 环境变量
+## 环境变量
 
 - GITHUB_ACCESS_TOKEN: 用于访问GitHub API的令牌 如果未设置 无法使用发布release功能
 
-# 致谢名单
+## 致谢名单
 
 > Credits
 > Kernel-Assisted Superuser: The KernelSU idea.
@@ -245,6 +258,3 @@ SOFTWARE.
 > APATCH : The kernel based root solution.
 > RootAVD: The AVD root script.
 > ShellCheck: The shell script static analysis tool.
-
-
-![](assets/20250612_052803_1749675378348sm0dl0tc.png)

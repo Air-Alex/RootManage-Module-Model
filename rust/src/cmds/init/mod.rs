@@ -269,7 +269,7 @@ fn create_project_config(project_path: &Path, project_id: &str, author: &str, em
     }
 
     // 生成智能的update_json URL
-    let update_json_url = if let Some(git) = git_info {
+    let _update_json_url = if let Some(git) = git_info {
         if let Some(remote_url) = &git.remote_url {
             generate_update_json_url(remote_url, project_id)
         } else {

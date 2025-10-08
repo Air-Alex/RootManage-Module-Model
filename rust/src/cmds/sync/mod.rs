@@ -1,11 +1,9 @@
 use anyhow::Result;
-use clap::ArgMatches;
 use colored::Colorize;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::fs;
-use std::collections::HashMap;
 
-use crate::core::rmm_core::{RmmCore, GitAnalyzer, MetaConfig};
+use crate::core::rmm_core::{RmmCore, GitAnalyzer};
 
 /// 作者信息
 #[derive(Debug, Clone, PartialEq)]
@@ -71,6 +69,7 @@ impl VersionInfo {
     }
     
     /// 传统版本升级（保留兼容性）
+    #[allow(dead_code)]
     fn bump_version(&mut self) {
         if let Some(last_dot) = self.version.rfind('.') {
             let prefix = &self.version[..last_dot + 1];
@@ -315,7 +314,7 @@ fn apply_author_sync_logic(
     project_author: &AuthorInfo, 
     git_author: &Option<AuthorInfo>,
     core: &RmmCore,
-    project_path: &Path,
+    _project_path: &Path,
     meta: &mut crate::core::rmm_core::MetaConfig
 ) -> Result<()> {
     

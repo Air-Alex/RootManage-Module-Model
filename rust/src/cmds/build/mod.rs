@@ -50,6 +50,7 @@ struct ShellcheckReport {
 }
 
 /// 构建模块项目
+#[allow(dead_code)]
 pub fn build_project(project_path: &Path) -> Result<()> {
     build_project_with_options(project_path, true) // 默认启用自动修复
 }
@@ -882,7 +883,7 @@ fn copy_source_files(project_path: &Path, source_build_dir: &Path, rmake_config:
         for entry in fs::read_dir(project_path)? {
             let entry = entry?;
             let path = entry.path();
-            let file_name = path.file_name().unwrap().to_string_lossy();
+            let _file_name = path.file_name().unwrap().to_string_lossy();
             
             // 不排除 .rmmp 目录，因为源代码需要包含配置
             source_entries.push(path);
@@ -1372,7 +1373,7 @@ fn apply_simple_fixes(file_path: &Path, diff_content: &str) -> Result<bool> {
     
     // 解析 diff 格式
     let mut in_hunk = false;
-    let mut hunk_old_start = 0usize;
+    let mut _hunk_old_start = 0usize;
     let mut current_line = 0usize;
     
     for line in diff_content.lines() {
@@ -1382,8 +1383,8 @@ fn apply_simple_fixes(file_path: &Path, diff_content: &str) -> Result<bool> {
                 .unwrap()
                 .captures(line) 
             {
-                hunk_old_start = captures.get(1).unwrap().as_str().parse::<usize>().unwrap_or(1);
-                current_line = hunk_old_start;
+                _hunk_old_start = captures.get(1).unwrap().as_str().parse::<usize>().unwrap_or(1);
+                current_line = _hunk_old_start;
                 in_hunk = true;
             }
         } else if in_hunk {
@@ -1420,7 +1421,7 @@ fn apply_simple_fixes(file_path: &Path, diff_content: &str) -> Result<bool> {
 }
 
 /// 尝试使用 git apply（使用规范化路径）
-fn try_git_apply(project_path: &Path, fixes_path: &Path) -> Result<()> {
+fn try_git_apply(project_path: &Path, _fixes_path: &Path) -> Result<()> {
     // 将路径转换为相对路径，避免长路径问题
     let relative_fixes_path = Path::new(".rmmp").join("shellcheck-fixes.diff");
     
@@ -1481,6 +1482,7 @@ fn copy_file_with_line_ending_normalization(src: &Path, dst: &Path) -> Result<()
 }
 
 /// 应用排除规则并收集路径
+#[allow(dead_code)]
 fn apply_exclusions_and_collect_paths(
     project_path: &Path,
     entries: Vec<PathBuf>,
