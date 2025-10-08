@@ -9,7 +9,7 @@
     <td valign="middle">
       <h1 style="margin:0;">RMM (Root Manage Module Model)</h1>
       <p style="margin-top:6px; margin-bottom:6px;">轻量模块开发工具集 — 从创建到构建、测试到发布的一站式工作流</p>
-      <!-- <p style="margin:6px 0 0 0;"><a href="https://github.com/LIghtJUNction/RootManage-Module-Model/"><img src="https://repobeats.axiom.co/api/embed/4dbcdf8b2d24156dcf08cef7cc801d9adb317cae.svg" alt="RepoBeats" /></a></p> -->
+      <!-- <p style="margin:6px 0 0 0;"><a href="https://github.com/APMMPDEVS/RootManage-Module-Model/"><img src="https://repobeats.axiom.co/api/embed/4dbcdf8b2d24156dcf08cef7cc801d9adb317cae.svg" alt="RepoBeats" /></a></p> -->
     </td>
   </tr>
 </table>
@@ -35,10 +35,10 @@
 | AI 测试 / 审计 / 优化 / 修复 | ❌ 不支持 | ☑️ 支持 |
 | 通知 / 模块推送（Telegram / Discord / QQ / 酷安） | ❌ 不支持 | ☑️ 开发中 |
 | 代理加速 | ❌ 不支持 | ☑️ 支持 |
-| 虚拟机仿真模块测试 | ❌ 不支持 | ☑️ 支持 |
+| 虚拟机仿真模块测试 | ❌ 不支持 | ☑️ 支持(实验中) |
 | 模块构建日志 | ❌ 不支持 | ☑️ 支持 |
-| 快捷安装至物理机 | ❌ 不支持 | ☑️ 支持 |
-| GPG 签名 | ❌ 不支持 | ☑️ 支持 |
+| 快捷安装至物理机 | ❌ 不支持 | ☑️ 开发中 |
+| GPG 签名 | ❌ 不支持 | ☑️ 计划支持 |
 
 > 注：表中“开发中 / developing”表示该功能正在实现中，状态可能会随着版本更新而变化。
 
@@ -149,19 +149,14 @@ system-images\android-36\google_apis\x86_64\ramdisk.img 需要替换为实际路
 
 #### Magick模块MCP服务器
 
-计划中
+> 现已支持mcp服务器 stdio 和 sse 模式
+> 但是功能并不完善
 
-### RMM正式启动时间 2025-06-07 高考首日
-
-预祝各位考生金榜题名，前程似锦！
-
-让我们携手构建一个更庞大的模块生态系统！
-Let's build a bigger module ecosystem together!
 
 ## License
 
 MIT License
-Copyright (c) 2025 LIghtJUNction
+Copyright (c) 2025 APMMPDEVS
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -210,28 +205,15 @@ SOFTWARE.
 1. Fork 本仓库
 2. 创建一个新的分支
 
-> vscode 启动
-> 注意开启类型检查工具
-> 不接受的PR:
+> PYTHOON 贡献指南
+先删掉uv.lock
+执行uv sync
 
-- 类型检查爆红的PR
-- 大量使用过时的Python语法或库的PR
-- 破坏包独立性的PR
+打包测试（实际上是调用的maturin打包的）：
+uv build
 
-> 作者我会认真审查每个PR
-
-- 如果你的PR被拒绝，我会给出详细的理由。如果你提供邮件，我会通过邮件通知你。
-- 如果你的PR被接受，我会在合并时注明你的贡献。
-
-> 如果你有任何问题或建议，请随时联系我。
-
-- LIghtJUNction.me@gmail.com
-- 本仓库已加入PROJECT: RMM
-- 请多多提交功能建议，BUG反馈
-- 团队会在项目中进行跟踪ISSUE
-
-3. 提交你的改动
-4. 提交 Pull Request
+本地安装测试:
+uv tool install -e .
 
 感谢你的支持与贡献！
 

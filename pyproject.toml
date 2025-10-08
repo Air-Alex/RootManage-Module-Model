@@ -3,7 +3,7 @@ name = "pyrmm"
 dynamic = ["version"]
 description = "Magisk/Apatch/Kernelsu模块的工具集"
 readme = "README.MD"
-license = "LICENSE"
+license = { text = "MIT" }
 authors = [
     { name = "LIghtJUNction", email = "LIghtJUNction.me@gmail.com" }
 ]
@@ -53,7 +53,6 @@ include = [
     { path = "rust-toolchain.toml", format = ["sdist", "wheel"] },
     { path = "LICENSE", format = "sdist" },
 ]
-
 
 # uv 工作区配置
 [tool.uv]
