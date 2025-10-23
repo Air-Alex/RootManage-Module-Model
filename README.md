@@ -7,7 +7,7 @@
       </a>
     </td>
     <td valign="middle">
-      <h1 style="margin:0;">RMM (RootModuleMaker)</h1>
+      <h1 style="margin:0;">RMM (Root Module Maker)</h1>
       <p style="margin-top:6px; margin-bottom:6px;">轻量模块开发工具集 — 从创建到构建、测试到发布的一站式工作流</p>
       <!-- <p style="margin:6px 0 0 0;"><a href="https://github.com/APMMPDEVS/RootManage-Module-Model/"><img src="https://repobeats.axiom.co/api/embed/4dbcdf8b2d24156dcf08cef7cc801d9adb317cae.svg" alt="RepoBeats" /></a></p> -->
     </td>
