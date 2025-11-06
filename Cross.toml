@@ -1,0 +1,11 @@
+# Cross configuration for cross-platform builds
+[build]
+# Build build-scripts in the container to avoid GLIBC version issues
+xargo = false
+
+[build.env]
+passthrough = ["RUST_BACKTRACE"]
+
+[target.aarch64-unknown-linux-gnu]
+
+[target.aarch64-linux-android]
