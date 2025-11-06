@@ -8,10 +8,11 @@ passthrough = ["RUST_BACKTRACE"]
 
 [target.aarch64-unknown-linux-gnu]
 # Install Python for PyO3 build
+# Install both native (for build scripts) and cross-arch Python (for linking)
 pre-build = [
     "dpkg --add-architecture arm64",
     "apt-get update",
-    "apt-get install -y python3 python3-dev:arm64"
+    "apt-get install -y python3 python3-dev libpython3-dev:arm64"
 ]
 
 [target.aarch64-unknown-linux-gnu.env]
