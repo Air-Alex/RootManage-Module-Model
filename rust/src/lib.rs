@@ -213,7 +213,7 @@ fn cli() -> PyResult<()> {
             let command_name = cmd.get(0).cloned();
             let module_name = command_name;
               // 尝试导入 Python 模块并执行
-            let result = Python::with_gil(|py| {
+            let result = Python::attach(|py| {
                 if let Some(name) = &module_name {
                     // 限制在 cli 包下查找模块
                     let module_path = format!("pyrmm.cli.{}", name);

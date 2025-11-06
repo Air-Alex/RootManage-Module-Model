@@ -25,7 +25,7 @@ impl PyRmmCore {
     }
 
     /// 获取 meta 配置
-    fn get_meta_config(&self, py: Python) -> PyResult<PyObject> {
+    fn get_meta_config(&self, py: Python) -> PyResult<Py<PyAny>> {
         match self.inner.get_meta_config() {
             Ok(meta) => {
                 let dict = PyDict::new(py);
@@ -79,7 +79,7 @@ impl PyRmmCore {
     }
 
     /// 检查项目有效性
-    fn check_projects_validity(&self, py: Python) -> PyResult<PyObject> {
+    fn check_projects_validity(&self, py: Python) -> PyResult<Py<PyAny>> {
         match self.inner.check_projects_validity() {
             Ok(validity) => {
                 let dict = PyDict::new(py);
@@ -100,7 +100,7 @@ impl PyRmmCore {
         py: Python,
         scan_path: String,
         max_depth: Option<usize>,
-    ) -> PyResult<PyObject> {
+    ) -> PyResult<Py<PyAny>> {
         let path = Path::new(&scan_path);
         match self.inner.scan_projects(path, max_depth) {            
             Ok(results) => {
@@ -133,7 +133,7 @@ impl PyRmmCore {
     }
 
     /// 获取项目配置
-    fn get_project_config(&self, py: Python, project_path: String) -> PyResult<PyObject> {
+    fn get_project_config(&self, py: Python, project_path: String) -> PyResult<Py<PyAny>> {
         let path = Path::new(&project_path);
         match self.inner.get_project_config(path) {
             Ok(project) => {
@@ -161,7 +161,7 @@ impl PyRmmCore {
     }
 
     /// 获取 module.prop
-    fn get_module_prop(&self, py: Python, project_path: String) -> PyResult<PyObject> {
+    fn get_module_prop(&self, py: Python, project_path: String) -> PyResult<Py<PyAny>> {
         let path = Path::new(&project_path);
         match self.inner.get_module_prop(path) {
             Ok(prop) => {
@@ -210,7 +210,7 @@ impl PyRmmCore {
     }
 
     /// 获取 Git 信息
-    fn get_git_info(&self, py: Python, project_path: String) -> PyResult<PyObject> {
+    fn get_git_info(&self, py: Python, project_path: String) -> PyResult<Py<PyAny>> {
         let path = Path::new(&project_path);
         match self.inner.get_git_info(path) {
             Ok(git_info) => {
@@ -236,7 +236,7 @@ impl PyRmmCore {
             PyErr::new::<pyo3::exceptions::PyRuntimeError, _>(e.to_string())
         })
     }    /// 移除多个项目
-    fn remove_projects_from_meta(&self, py: Python, project_names: Vec<String>) -> PyResult<PyObject> {
+    fn remove_projects_from_meta(&self, py: Python, project_names: Vec<String>) -> PyResult<Py<PyAny>> {
         let names: Vec<&str> = project_names.iter().map(|s| s.as_str()).collect();
         match self.inner.remove_projects_from_meta(&names) {
             Ok(removed) => {
@@ -248,7 +248,7 @@ impl PyRmmCore {
             )),
         }
     }    /// 移除无效项目
-    fn remove_invalid_projects(&self, py: Python) -> PyResult<PyObject> {
+    fn remove_invalid_projects(&self, py: Python) -> PyResult<Py<PyAny>> {
         match self.inner.remove_invalid_projects() {
             Ok(removed) => {
                 let json_str = serde_json::to_string(&removed).unwrap_or_else(|_| "[]".to_string());
@@ -261,7 +261,7 @@ impl PyRmmCore {
     }
 
     /// 获取缓存统计
-    fn get_cache_stats(&self, py: Python) -> PyResult<PyObject> {
+    fn get_cache_stats(&self, py: Python) -> PyResult<Py<PyAny>> {
         let (meta_cached, project_count) = self.inner.get_cache_stats();
         let dict = PyDict::new(py);
         dict.set_item("meta_cached", meta_cached)?;
@@ -280,7 +280,7 @@ impl PyRmmCore {
     }
 
     /// 创建默认的 meta 配置
-    fn create_default_meta(&self, py: Python, email: String, username: String, version: String) -> PyResult<PyObject> {
+    fn create_default_meta(&self, py: Python, email: String, username: String, version: String) -> PyResult<Py<PyAny>> {
         let meta = MetaConfig {
             email,
             username,
@@ -298,7 +298,7 @@ impl PyRmmCore {
         
         Ok(dict.into())
     }    /// 创建默认的项目配置
-    fn create_default_project(&self, py: Python, project_id: String, username: String, email: String) -> PyResult<PyObject> {
+    fn create_default_project(&self, py: Python, project_id: String, username: String, email: String) -> PyResult<Py<PyAny>> {
         let project_config = RmmProject {
             project: ProjectInfo {
                 id: project_id.clone(),
@@ -345,7 +345,7 @@ impl PyRmmCore {
     }
 
     /// 创建默认的 module.prop 配置
-    fn create_default_module_prop(&self, py: Python, module_id: String, username: String) -> PyResult<PyObject> {
+    fn create_default_module_prop(&self, py: Python, module_id: String, username: String) -> PyResult<Py<PyAny>> {
         let prop = ModuleProp {
             id: module_id.clone(),
             name: format!("{} Module", module_id),
@@ -369,7 +369,7 @@ impl PyRmmCore {
     }
 
     /// 创建默认的 Rmake 配置
-    fn create_default_rmake(&self, py: Python) -> PyResult<PyObject> {
+    fn create_default_rmake(&self, py: Python) -> PyResult<Py<PyAny>> {
         let config = RmakeConfig {
             build: BuildConfig {
                 include: vec!["rmm".to_string()],
@@ -415,7 +415,7 @@ impl PyRmmCore {
     }
 
     /// 获取 rmake 配置
-    fn get_rmake_config(&self, py: Python, project_path: String) -> PyResult<PyObject> {
+    fn get_rmake_config(&self, py: Python, project_path: String) -> PyResult<Py<PyAny>> {
         let path = Path::new(&project_path);
         match self.inner.get_rmake_config(path) {
             Ok(config) => {
@@ -485,7 +485,7 @@ impl PyRmmCore {
     }
 
     /// 获取 meta 配置中的特定值
-    fn get_meta_value(&self, py: Python, key: String) -> PyResult<PyObject> {
+    fn get_meta_value(&self, py: Python, key: String) -> PyResult<Py<PyAny>> {
         match self.inner.get_meta_config() {
             Ok(meta) => {
                 match key.as_str() {
