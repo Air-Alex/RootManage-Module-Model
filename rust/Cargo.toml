@@ -14,6 +14,10 @@ authors = ["LIghtJUNction <lightjuntion.me@gmail.com>"]
 name = "rmmcore"
 crate-type = ["cdylib"]
 
+[[bin]]
+name = "rmm"
+path = "src/main.rs"
+
 [dependencies]
 pyo3 = { version = "0.26.0", features = ["extension-module"] }
 clap = { version = "4.5.40", features = ["derive"] }
