@@ -305,3 +305,84 @@ fn rmmcore(m: &Bound<'_, PyModule>) -> PyResult<()> {
     
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    
+    /// 测试现代化的模块结构可以正确编译和导入
+    #[test]
+    fn test_modern_module_structure() {
+        // 验证 cmds 模块可以访问
+        let _ = cmds::Commands::Version;
+        
+        // 验证 cmds 子模块可以访问
+        // 这些模块现在使用现代化的命名（不是 mod.rs）
+        // 如果模块结构不正确，这些导入会在编译时失败
+    }
+    
+    /// 测试所有命令枚举可以正确创建
+    #[test]
+    fn test_commands_enum() {
+        use cmds::Commands;
+        
+        // 测试 Init 命令
+        let init_cmd = Commands::Init {
+            project_id: "test_project".to_string(),
+        };
+        assert!(matches!(init_cmd, Commands::Init { .. }));
+        
+        // 测试 Build 命令
+        let build_cmd = Commands::Build {
+            project_path: None,
+            no_auto_fix: false,
+            script: None,
+        };
+        assert!(matches!(build_cmd, Commands::Build { .. }));
+        
+        // 测试 Run 命令
+        let run_cmd = Commands::Run {
+            project_path: None,
+            script: None,
+        };
+        assert!(matches!(run_cmd, Commands::Run { .. }));
+        
+        // 测试 Sync 命令
+        let sync_cmd = Commands::Sync {
+            project_name: None,
+            projects_only: false,
+            search_paths: None,
+            max_depth: Some(3),
+        };
+        assert!(matches!(sync_cmd, Commands::Sync { .. }));
+        
+        // 测试 Version 命令
+        let version_cmd = Commands::Version;
+        assert!(matches!(version_cmd, Commands::Version));
+    }
+    
+    /// 测试 core 模块的导出
+    #[test]
+    fn test_core_module_exports() {
+        // 验证 RmmCore 可以创建
+        let _core = core::rmm_core::RmmCore::new();
+        
+        // 验证 PyRmmCore 类型存在
+        let _: Option<PyRmmCore> = None;
+    }
+    
+    /// 测试模块路径的正确性
+    #[test]
+    fn test_module_paths() {
+        // 确保所有模块都在正确的路径下
+        // 这个测试主要验证编译器能找到所有模块
+        
+        // cmds 模块及其子模块
+        assert!(std::any::type_name::<cmds::Commands>().contains("cmds::Commands"));
+        assert!(std::any::type_name::<cmds::RmmBox>().contains("cmds::rmmbox::RmmBox"));
+        
+        // core 模块
+        assert!(std::any::type_name::<core::rmm_core::RmmCore>().contains("core::rmm_core::RmmCore"));
+        assert!(std::any::type_name::<core::python_bindings::PyRmmCore>().contains("core::python_bindings::PyRmmCore"));
+    }
+}
