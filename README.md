@@ -81,7 +81,31 @@ avd你可以参考下面的教程，本项目拷贝了rootAVD几个关键文件�
 
 ## 使用方法
 
-### 安装 uv (推荐)
+### 方式一：下载预编译二进制文件（推荐）
+
+从 [Releases](https://github.com/MemDeco-WG/RootModuleMaker/releases) 页面下载适合您系统的预编译二进制文件：
+
+- **Linux x86_64**: `rmm-linux-x86_64`
+- **Linux ARM64**: `rmm-linux-aarch64`
+- **macOS x86_64**: `rmm-macos-x86_64`
+- **macOS ARM64 (Apple Silicon)**: `rmm-macos-aarch64`
+- **Windows x86_64**: `rmm-windows-x86_64.exe`
+
+下载后，给予执行权限（Linux/macOS）：
+
+```bash
+chmod +x rmm-*
+```
+
+然后直接运行：
+
+```bash
+./rmm-linux-x86_64 --help
+```
+
+**注意**：预编译的二进制文件是纯 Rust 实现，不支持 Python 扩展命令。如需使用 Python 扩展功能，请使用方式二或方式三安装。
+
+### 方式二：安装 uv (Python 包)
 
 > 从pypi安装
 
@@ -100,7 +124,7 @@ rmm
 uv tool uninstall pyrmm
 ```
 
-### 从源码安装（开发者）
+### 方式三：从源码安装（开发者）
 
 开发者快速开始（可复制粘贴执行）——在本仓库根目录运行以下命令：
 
@@ -128,6 +152,28 @@ uv tool install -e . --force
 说明：
 - 在 macOS / Linux 下请使用 zsh 或 bash；在 Windows 下可使用 PowerShell 或 Git Bash。
 - 如果遇到权限或环境问题，请先确保已安装 Rust、maturin、以及项目所需的构建工具（例如 cmake）。
+
+### 方式四：从源码构建二进制文件
+
+如果你只想使用独立的二进制文件（不需要 Python 扩展），可以直接编译 Rust 二进制：
+
+```bash
+git clone https://github.com/MemDeco-WG/RootModuleMaker.git
+cd RootModuleMaker/rust
+cargo build --release --bin rmm
+```
+
+编译后的二进制文件位于 `target/release/rmm` (或 Windows 上的 `rmm.exe`)。
+
+**交叉编译示例**：
+
+```bash
+# 安装目标平台
+rustup target add aarch64-unknown-linux-gnu
+
+# 编译 ARM64 Linux 版本
+cargo build --release --bin rmm --target aarch64-unknown-linux-gnu
+```
 
 ## 用户手册
 
