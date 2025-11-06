@@ -37,6 +37,14 @@ Added minimal configuration file for the `cross` tool:
 - Configures target-specific options
 - Relies on cross's Docker images for toolchains
 
+#### Android ARM64 Configuration
+For Android cross-compilation, special handling is required for PyO3:
+- The `rmm` binary doesn't link against Python (it's standalone)
+- The library (cdylib) uses PyO3 for Python bindings
+- When building with `--bin rmm`, PyO3's build script still runs
+- Solution: Set `PYO3_NO_PYTHON=1` to skip Python detection
+- This tells PyO3 we're building a standalone binary without Python
+
 ## Manual Build Verification
 
 ### Test Environment
