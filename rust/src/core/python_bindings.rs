@@ -462,8 +462,15 @@ impl PyRmmCore {
         let username: String = config_dict.get_item("username")?.unwrap().extract()?;
         let version: String = config_dict.get_item("version")?.unwrap().extract()?;
         
-        let projects_item = config_dict.get_item("projects")?.unwrap();
-        let projects_dict = projects_item.downcast::<PyDict>()?;
+    let projects_item = config_dict.get_item("projects")?.unwrap();
+        // Use the original `downcast` but silence the deprecation warning locally.
+        // The newer `Bound::cast` API is recommended by pyo3, but using a small
+        // allow(deprecated) block here avoids a breaking change while keeping
+        // the code correct and clear.
+        let projects_dict = {
+            #[allow(deprecated)]
+            { projects_item.downcast::<PyDict>()? }
+        };
         let mut projects = HashMap::new();
         
         for (key, value) in projects_dict.iter() {

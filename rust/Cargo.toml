@@ -1,6 +1,6 @@
 [package]
 name = "rmm"
-version = "0.3.5"
+version = "0.3.6"
 edition = "2024"
 description = "高性能RMMP管理器"
 license = "MIT"
@@ -19,7 +19,7 @@ name = "rmm"
 path = "src/main.rs"
 
 [dependencies]
-pyo3 = { version = "0.26.0", features = ["extension-module"] }
+pyo3 = { version = "0.27.1", features = ["extension-module"] }
 clap = { version = "4.5.40", features = ["derive"] }
 clap_complete = "4.5.58"
 anyhow = "1.0.100"
@@ -32,7 +32,7 @@ reqwest = { version = "0.12.23", features = ["json", "rustls-tls"], default-feat
 tokio = { version = "1.47.1", features = ["rt-multi-thread"] }
 git2 = { version = "0.20.2", default-features = false, features = ["vendored-openssl", "vendored-libgit2"] }
 glob = "0.3.3"
-zip = "4.0.0"
+zip = "6.0.0"
 flate2 = "1.1.4"
 tar = "0.4.44"
 walkdir = "2.5.0"
@@ -53,5 +53,10 @@ opt-level = 0
 panic = "unwind"
 
 [build-dependencies]
-pyo3-build-config = "0.26.0"
+pyo3-build-config = "0.27.1"
+
+[features]
+# Feature to enable building Python extension (enables the `extension-module` feature on pyo3)
+# Use this feature when building via maturin so the Rust crate is compiled as a Python extension.
+python-extension = ["pyo3/extension-module"]
 

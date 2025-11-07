@@ -45,6 +45,8 @@ python-source = "src"
 module-name = "pyrmm.cli.rmmcore"
 # 构建配置
 strip = true
+# 在构建时启用的 cargo features (将启用 rust/Cargo.toml 中的 python-extension)
+features = ["python-extension"]
 # 二进制类型
 bindings = "pyo3"
 # 交叉编译目标平台
