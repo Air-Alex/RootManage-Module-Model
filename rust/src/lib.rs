@@ -1,5 +1,6 @@
 #![recursion_limit = "256"]
 
+#[cfg(feature = "python-extension")]
 use pyo3::prelude::*;
 use std::path::PathBuf;
 
@@ -7,10 +8,13 @@ mod cmds;
 mod core;
 
 use cmds::{Commands, RmmBox};
+#[cfg(feature = "python-extension")]
 use core::python_bindings::PyRmmCore;
+#[cfg(feature = "python-extension")]
 use pyo3::Python;
 
 use clap::{Parser, CommandFactory};
+#[cfg(feature = "python-extension")]
 use pyo3::types::PyList;
 use colored::*;
 
@@ -30,6 +34,7 @@ struct Cli {
     cmd: Option<Commands>,
 }
 /// CLI 入口函数
+#[cfg(feature = "python-extension")]
 #[pyfunction]
 fn cli() -> PyResult<()> {
     let args = Cli::parse_from(std::env::args().skip(1));
@@ -295,6 +300,7 @@ fn get_styles() -> clap::builder::Styles {
 }
 
 /// Python 模块定义
+#[cfg(feature = "python-extension")]
 #[pymodule]
 fn rmmcore(m: &Bound<'_, PyModule>) -> PyResult<()> {
     // pyrmm.rmmcore.cli
@@ -362,6 +368,7 @@ mod tests {
     }
     
     /// 测试 core 模块的导出
+    #[cfg(feature = "python-extension")]
     #[test]
     fn test_core_module_exports() {
         // 验证 RmmCore 可以创建
@@ -383,6 +390,7 @@ mod tests {
         
         // core 模块
         assert!(std::any::type_name::<core::rmm_core::RmmCore>().contains("core::rmm_core::RmmCore"));
+        #[cfg(feature = "python-extension")]
         assert!(std::any::type_name::<core::python_bindings::PyRmmCore>().contains("core::python_bindings::PyRmmCore"));
     }
 }
