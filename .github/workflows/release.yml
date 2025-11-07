@@ -121,7 +121,7 @@ jobs:
         run: cross build --bin rmm --release --target ${{ matrix.target }}
 
       - name: Strip binary (Linux and macOS)
-        if: runner.os != 'Windows' && matrix.target != 'aarch64-linux-android'
+        if: runner.os != 'Windows' && !matrix.use_cross
         working-directory: ./rust
         run: strip target/${{ matrix.target }}/release/${{ matrix.artifact_name }}
 
