@@ -7,22 +7,16 @@ xargo = false
 passthrough = ["RUST_BACKTRACE"]
 
 [target.aarch64-unknown-linux-gnu]
-# Install Python for PyO3 build
-# Install both native (for build scripts) and cross-arch Python (for linking)
-pre-build = [
-    "dpkg --add-architecture arm64",
-    "apt-get update",
-    "apt-get install -y python3 python3-dev libpython3-dev:arm64"
-]
+# For aarch64 Linux, we build a standalone binary that doesn't link against Python
+# We use PYO3_NO_PYTHON to skip Python detection in PyO3 build script
+# No pre-build steps needed since we don't need Python
 
 [target.aarch64-unknown-linux-gnu.env]
 passthrough = [
-    "PYO3_CROSS",
-    "PYO3_CROSS_LIB_DIR",
-    "PYO3_CROSS_PYTHON_VERSION"
+    "PYO3_NO_PYTHON"
 ]
-# Set Python environment for cross-compilation
-PYO3_CROSS_LIB_DIR = "/usr/lib/aarch64-linux-gnu"
+# Tell PyO3 to skip Python detection for standalone binary
+PYO3_NO_PYTHON = "1"
 
 [target.aarch64-linux-android]
 # For Android, we build a standalone binary that doesn't link against Python
