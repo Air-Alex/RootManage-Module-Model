@@ -25,19 +25,13 @@ passthrough = [
 PYO3_CROSS_LIB_DIR = "/usr/lib/aarch64-linux-gnu"
 
 [target.aarch64-linux-android]
-# Install Python for PyO3 build
-pre-build = [
-    "apt-get update",
-    "apt-get install -y python3 python3-dev"
-]
+# For Android, we build a standalone binary that doesn't link against Python
+# We use PYO3_NO_PYTHON to skip Python detection in PyO3 build script
+# No pre-build steps needed since we don't need Python
 
 [target.aarch64-linux-android.env]
 passthrough = [
-    "PYO3_CROSS",
-    "PYO3_CROSS_LIB_DIR",
-    "PYO3_CROSS_PYTHON_VERSION"
+    "PYO3_NO_PYTHON"
 ]
-# Set Python environment for cross-compilation
-# For Android, we just need Python available for build scripts
-# The binary doesn't link against Python
-PYO3_CROSS_LIB_DIR = "/usr/lib/x86_64-linux-gnu"
+# Tell PyO3 to skip Python detection for standalone binary
+PYO3_NO_PYTHON = "1"
