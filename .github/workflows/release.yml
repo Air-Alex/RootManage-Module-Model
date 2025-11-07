@@ -116,6 +116,8 @@ jobs:
       - name: Build binary (cross)
         if: matrix.use_cross
         working-directory: ./rust
+        env:
+          PYO3_NO_PYTHON: "1"
         run: cross build --bin rmm --release --target ${{ matrix.target }}
 
       - name: Strip binary (Linux and macOS)
