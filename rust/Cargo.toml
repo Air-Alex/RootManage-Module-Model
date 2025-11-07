@@ -58,7 +58,9 @@ panic = "unwind"
 pyo3-build-config = "0.27.1"
 
 [features]
-# Feature to enable building Python extension (enables the `extension-module` feature on pyo3)
+# Feature to enable building Python extension (enables pyo3 features needed for extension)
 # Use this feature when building via maturin so the Rust crate is compiled as a Python extension.
-python-extension = ["pyo3/extension-module"]
+# Enable 'macros' so attribute macros like #[pyclass]/#[pymethods]/#[pyfunction] are available.
+# Enable 'auto-initialize' to simplify embedding Python (optional but helpful).
+python-extension = ["pyo3/extension-module", "pyo3/macros", "pyo3/auto-initialize"]
 

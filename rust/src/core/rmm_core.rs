@@ -1,6 +1,7 @@
 use anyhow::{Context, Result};
 use git2::{Repository, StatusOptions};
 use serde::{Deserialize, Serialize};
+use std::io::ErrorKind;
 use std::collections::HashMap;
 use std::env;
 use std::fs;
@@ -327,11 +328,37 @@ impl RmmCore {    /// 创建新的 RmmCore 实例
             }
         }
 
-        // 读取并解析文件
+        // 读取并解析文件。如果 meta.toml 不存在，则自动创建一个默认的 meta.toml 并返回默认配置
         let meta_path = self.get_meta_path();
-        let content = fs::read_to_string(&meta_path)
-            .with_context(|| format!("Failed to read meta.toml from {}", meta_path.display()))?;
-        
+        let content = match fs::read_to_string(&meta_path) {
+            Ok(c) => c,
+            Err(e) => {
+                if e.kind() == ErrorKind::NotFound {
+                    // 确保目录存在
+                    if let Some(parent) = meta_path.parent() {
+                        fs::create_dir_all(parent)
+                            .with_context(|| format!("Failed to create directory {}", parent.display()))?;
+                    }
+
+                    // 写入默认 meta.toml
+                    let default_meta = MetaConfig::default();
+                    let toml_str = toml::to_string_pretty(&default_meta)
+                        .with_context(|| "Failed to serialize default meta.toml")?;
+                    fs::write(&meta_path, toml_str)
+                        .with_context(|| format!("Failed to write default meta.toml to {}", meta_path.display()))?;
+
+                    // 更新缓存并返回默认值
+                    {
+                        let mut cache = self.meta_cache.lock().unwrap();
+                        *cache = Some(CacheItem::new(default_meta.clone(), self.cache_ttl));
+                    }
+                    return Ok(default_meta);
+                } else {
+                    return Err(anyhow::anyhow!(format!("Failed to read meta.toml from {}: {}", meta_path.display(), e)));
+                }
+            }
+        };
+
         let meta: MetaConfig = toml::from_str(&content)
             .with_context(|| "Failed to parse meta.toml")?;
 
