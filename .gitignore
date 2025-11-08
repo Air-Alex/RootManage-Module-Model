@@ -5,7 +5,5 @@ go.tar.gz
 MyModule/MyModule.zip
 *.pyc
 /rmmbox/config/target/debug
-/rust/target
-/rust/target
-/rust/target
+*/target*
 uv.lock
